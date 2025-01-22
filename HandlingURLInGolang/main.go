@@ -37,5 +37,16 @@ func main() {
 	query.Set("param2", "value2")
 	exampleUrl.RawQuery = query.Encode()
 	fmt.Println("Modified url: ", exampleUrl.String())
+	
+	originalString := "Hello, World! & ? /"
+	escapedString := url.QueryEscape(originalString)
+	fmt.Println("Escaped String:", escapedString) // Output: Hello%2C+World%21+%26+%3F+%2F
+	
+	unescapedString, err := url.QueryUnescape(escapedString)
+	if err != nil {
+		fmt.Println("Error unescaping:", err) 
+		} else { 
+			fmt.Println("Unescaped String:", unescapedString) // Output: Hello, World! & ? /
+			}
 
 }
