@@ -37,6 +37,9 @@ func main() {
 	query.Set("param2", "value2")
 	exampleUrl.RawQuery = query.Encode()
 	fmt.Println("Modified url: ", exampleUrl.String())
+
+	fragment := exampleUrl.Fragment
+	fmt.Println("Fragement: ", fragment)
 	
 	originalString := "Hello, World! & ? /"
 	escapedString := url.QueryEscape(originalString)
