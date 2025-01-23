@@ -15,10 +15,7 @@ func main() {
 	fmt.Println("Get Request in Golang")
 
 	response, err := http.Get(exampleUrl)
-	if err != nil {
-		fmt.Println("Error while calling url")
-		return 
-	}
+	checkNilError(err, "Error while calling url")
 	defer response.Body.Close()
 
 	responseStatusCode := response.StatusCode
