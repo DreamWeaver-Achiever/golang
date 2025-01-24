@@ -10,15 +10,14 @@ import (
 
 type MyData struct {
         Name  string `json:"name"`
-        Value int    `json:"value"`
+        Age int    `json:"value"`
 }
 
 func main() {
         url := "http://httpbin.org/post" // Example endpoint (replace with your target)
-        data := MyData{
-                Name:  "John Doe",
-                Value: 42,
-        }
+        data := MyData{}
+        data.Name = "John Doe"
+        data.Age = 42
 
         // Encode data to JSON
         jsonData, err := json.Marshal(data)
@@ -27,6 +26,7 @@ func main() {
         // Create a request
         req, err := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
         checkNilError(err, "Error creating request")
+        defer req.Body.Close()
 
         // Set request headers
         req.Header.Set("Content-Type", "application/json")
