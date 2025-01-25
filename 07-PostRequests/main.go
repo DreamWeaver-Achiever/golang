@@ -10,7 +10,7 @@ import (
 
 type MyData struct {
         Name  string `json:"name"`
-        Age int    `json:"value"`
+        Age int    `json:"age"`
 }
 
 func main() {
