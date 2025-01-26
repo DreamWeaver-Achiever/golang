@@ -17,7 +17,7 @@ func main() {
 	data.Set("Age", "42")
 
 	response, err := http.PostForm(exampleUrl, data)
-	CheckNilError(err, "Error while making POST request")
+	CheckNilError(err, "Error while making postForm request")
 	defer response.Body.Close()
 	fmt.Println("Response: ", response)
 }
