@@ -28,13 +28,19 @@ func main() {
         // Print JSON string
         fmt.Println("JSON:", string(jsonData))
 
+        //Check if json is valid
+        isJsonValid := json.Valid(jsonData)
         // Decode from JSON
+        if isJsonValid {
         var decodedPerson Person
         err = json.Unmarshal(jsonData, &decodedPerson)
         CheckNilError(err, "Error during decoding")
-
         // Print decoded data
         fmt.Println("Decoded Person:", decodedPerson)
+        } else {
+                fmt.Println("Json is not valid.")
+        }
+
 }
 
 func CheckNilError(err error, errMsg string) {
