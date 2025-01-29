@@ -39,6 +39,7 @@ func main() {
         fmt.Println("Decoded Person:", decodedPerson)
         } else {
                 fmt.Println("Json is not valid.")
+                return
         }
 
 }

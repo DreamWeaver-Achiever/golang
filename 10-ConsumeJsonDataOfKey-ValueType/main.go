@@ -24,6 +24,7 @@ func main() {
 		checkNilError(err, "Error while unmarshalling data.")
 	} else {
 		fmt.Println("Json is not valid.")
+		return
 	}
 	for k, v := range decodedJson {
 		fmt.Printf("\nJson Key: %v, Json Value: %v, Json value Type: %T", k, v, v);
