@@ -26,7 +26,7 @@ type Author struct {
 }
 
 //fake DB
-var courses []Course
+var Names []Course
 
 // middleware, helper - file
 func (c *Course) IsEmpty() bool {
@@ -35,16 +35,16 @@ func (c *Course) IsEmpty() bool {
 }
 
 func main() {
-	fmt.Println("API - LearnCodeOnline.in")
+	fmt.Println("Building in api")
 	r := mux.NewRouter()
 
 	//seeding
-	courses = append(courses, Course{CourseId: "2", CourseName: "ReactJS", CoursePrice: 299, Author: &Author{Fullname: "Hitesh Choudhary", Website: "lco.dev"}})
-	courses = append(courses, Course{CourseId: "4", CourseName: "MERN Stack", CoursePrice: 199, Author: &Author{Fullname: "Hitesh Choudhary", Website: "go.dev"}})
+	Names = append(Names, Course{CourseId: "2", CourseName: "ReactJS", CoursePrice: 299, Author: &Author{Fullname: "Hitesh Choudhary", Website: "lco.dev"}})
+	Names = append(Names, Course{CourseId: "4", CourseName: "MERN Stack", CoursePrice: 199, Author: &Author{Fullname: "Hitesh Choudhary", Website: "go.dev"}})
 
 	//routing
 	r.HandleFunc("/", serveHome).Methods("GET")
-	r.HandleFunc("/courses", getAllCourses).Methods("GET")
+	r.HandleFunc("/Names", getAllNames).Methods("GET")
 	r.HandleFunc("/course/{id}", getOneCourse).Methods("GET")
 	r.HandleFunc("/course", createOneCourse).Methods("POST")
 	r.HandleFunc("/course/{id}", updateOneCourse).Methods("PUT")
@@ -59,13 +59,13 @@ func main() {
 // serve home route
 
 func serveHome(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("<h1>Welcome to API by LearnCodeOnline</h1>"))
+	w.Write([]byte("<h1>Welcome to API my api</h1>"))
 }
 
-func getAllCourses(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Get all courses")
+func getAllNames(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Get all Names")
 	w.Header().Set("Content-Type", "applicatioan/json")
-	json.NewEncoder(w).Encode(courses)
+	json.NewEncoder(w).Encode(Names)
 }
 
 func getOneCourse(w http.ResponseWriter, r *http.Request) {
@@ -75,8 +75,8 @@ func getOneCourse(w http.ResponseWriter, r *http.Request) {
 	// grab id from request
 	params := mux.Vars(r)
 
-	// loop through courses, find matching id and return the response
-	for _, course := range courses {
+	// loop through Names, find matching id and return the response
+	for _, course := range Names {
 		if course.CourseId == params["id"] {
 			json.NewEncoder(w).Encode(course)
 			return
@@ -108,11 +108,11 @@ func createOneCourse(w http.ResponseWriter, r *http.Request) {
 	// loop, title matches with course.coursename, JSON
 
 	// generate unique id, string
-	// append course into courses
+	// append course into Names
 
 	rand.Seed(time.Now().UnixNano())
 	course.CourseId = strconv.Itoa(rand.Intn(100))
-	courses = append(courses, course)
+	Names = append(Names, course)
 	json.NewEncoder(w).Encode(course)
 	return
 
@@ -127,13 +127,13 @@ func updateOneCourse(w http.ResponseWriter, r *http.Request) {
 
 	// loop, id, remove, add with my ID
 
-	for index, course := range courses {
+	for index, course := range Names {
 		if course.CourseId == params["id"] {
-			courses = append(courses[:index], courses[index+1:]...)
+			Names = append(Names[:index], Names[index+1:]...)
 			var course Course
 			_ = json.NewDecoder(r.Body).Decode(&course)
 			course.CourseId = params["id"]
-			courses = append(courses, course)
+			Names = append(Names, course)
 			json.NewEncoder(w).Encode(course)
 			return
 		}
@@ -149,9 +149,9 @@ func deleteOneCourse(w http.ResponseWriter, r *http.Request) {
 
 	//loop, id, remove (index, index+1)
 
-	for index, course := range courses {
+	for index, course := range Names {
 		if course.CourseId == params["id"] {
-			courses = append(courses[:index], courses[index+1:]...)
+			Names = append(Names[:index], Names[index+1:]...)
 			// TODO: send a confirm or deny response
 			break
 		}
