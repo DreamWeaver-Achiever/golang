@@ -59,7 +59,7 @@ func main() {
 // serve home route
 
 func serveHome(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("<h1>Welcome to API my api</h1>"))
+	w.Write([]byte("<h1>Welcome to API</h1>"))
 }
 
 func getAllNames(w http.ResponseWriter, r *http.Request) {
